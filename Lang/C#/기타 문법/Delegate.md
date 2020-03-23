@@ -1,5 +1,9 @@
 ### 델리게이트
 
+* 단점 : 델리게이트는 어디서나 사용이 가능하다... 그래서 이를 보완한 것이 Event입니다.
+
+
+
 델리게이트는 대행자  즉 콜백으로 처리하는 방식이다.
 
 함수자체를 인자로 넘겨줘서 처리하는 방식입니다.
@@ -49,6 +53,53 @@ static void Main(string[] args)
     ButtonPressed(TestDelegate);
 }
 ```
+
+
+
+### 제네릭 활용
+
+좀 더 범용적인 델리게이트 사용하기 위해 사용 됩니다.
+
+
+
+* 사용 예
+
+```cs
+ delegate Return MyFunc<T,Return>(T item);
+
+ static Item FindItem(MyFunc<Item,bool> selector)
+ {
+     foreach (Item item in _items)
+     {
+         if (selector(item))
+         {
+             return item;
+         }
+     }
+     return null;
+ }
+
+MyFunc<Item, bool> selector = (Item item) => { return item.ItemType == ItemType.Weapon; };
+
+Item item = FindItem(selector);
+Console.WriteLine(selector);
+
+```
+
+
+
+위 사용 예는 리턴 이나 변수 개수에는 유연하지 않습니다. 그래서 이를 추가해줘야 합니다. 
+
+직접 만들지 않아도, 이미 만들어진 애들이 존재합니다.
+
+
+
+* Func : 반환 타입이 있을 경우 
+* Action : 반환 타입이 없으면  
+
+
+
+
 
 
 
